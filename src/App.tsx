@@ -71,8 +71,7 @@ function App() {
     document.addEventListener('keyup', (e) => {
       const key = e.key
       const lastBlocksDelete = blocksDelete.current
-      console.log(key)
-      console.log(blocks)
+
       for (let i = 0; i < blocks.current.length; i++) {
         const block = blocks.current[i]
         
@@ -81,14 +80,14 @@ function App() {
           audio.play()
           block.opacity = 0
           blocksDelete.current = blocksDelete.current - 1
+          console.log('blocksDelete.current:' + blocksDelete.current)
           setSuccess((pre) => pre + 1)
-
           blocks.current[i] = block
         }
-
-        if (blocksDelete.current === lastBlocksDelete) {
-          setWrong((pre) => pre + 1)
-        }
+      }
+      
+      if (blocksDelete.current === lastBlocksDelete) {
+        setWrong((pre) => pre + 1)
       }
     })
   }
@@ -109,10 +108,6 @@ function App() {
     document.addEventListener('keyup', spaceToStart)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // useEffect(() => {
-  //   console.log(blocks)
-  // }, [blocks])
 
   return (
     <>
