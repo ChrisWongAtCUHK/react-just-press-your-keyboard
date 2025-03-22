@@ -21,12 +21,12 @@ function App() {
   const [shapesIndex, setShapesIndex] = useState(0)
   const [numOfBlocksIndex, setNumOfBlocksIndex] = useState(0)
   const [isCircle, setIsCircle] = useState(false)
-  const [blocks, setBlocks] = useState<Block[]>([])
+  const blocks = useRef<Block[]>([])
   const blocksDelete = useRef(0)
   const [spentTime, setSpentTime] = useState('')
   const [wrong, setWrong] = useState(0)
   const [success, setSuccess] = useState(0)
-  const time = useRef(1)
+  const time = useRef(0)
 
   function changeShape(index = 0, shape = settingData.shapes[0]) {
     setShapesIndex(() => index)
@@ -37,7 +37,7 @@ function App() {
     }
   }
 
-  function changeNumOfBlocksIndex(index = 0, numOfBlocks = 10) {
+  function changeNumOfBlocks(index = 0, numOfBlocks = 10) {
     setNumOfBlocksIndex(() => index)
     for (let i = 0; i < numOfBlocks; i++) {
       const top = (Math.random() * (500 - 10) + 10).toFixed(0) + 'px'
@@ -52,7 +52,7 @@ function App() {
       }
     }
 
-    setBlocks(() => randomBlocks as Block[])
+    blocks.current = [...randomBlocks] as Block[] 
     blocksDelete.current = randomBlocks.length
   }
 
@@ -64,15 +64,18 @@ function App() {
         clearInterval(startInterval)
         return
       }
-      setSpentTime(() => time + 's')
+      setSpentTime(() => time.current + 's')
       time.current = time.current + 1
     }, 1000)
 
     document.addEventListener('keyup', (e) => {
       const key = e.key
       const lastBlocksDelete = blocksDelete.current
-      for (let i = 0; i < blocks.length; i++) {
-        const block = blocks[i]
+      console.log(key)
+      console.log(blocks)
+      for (let i = 0; i < blocks.current.length; i++) {
+        const block = blocks.current[i]
+        
         if (block.letter === key && block.opacity !== 0) {
           const audio = new Audio(mouse)
           audio.play()
@@ -80,9 +83,7 @@ function App() {
           blocksDelete.current = blocksDelete.current - 1
           setSuccess((pre) => pre + 1)
 
-          const newBlocks = [...blocks]
-          newBlocks[i] = block
-          setBlocks(() => [...newBlocks])
+          blocks.current[i] = block
         }
 
         if (blocksDelete.current === lastBlocksDelete) {
@@ -104,10 +105,14 @@ function App() {
   }
   useEffect(() => {
     changeShape()
-    changeNumOfBlocksIndex()
+    changeNumOfBlocks()
     document.addEventListener('keyup', spaceToStart)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // useEffect(() => {
+  //   console.log(blocks)
+  // }, [blocks])
 
   return (
     <>
@@ -118,7 +123,7 @@ function App() {
       <div className='my-content'>
         {isStart ? (
           <div className='blocks'>
-            {blocks.map((block, index) => {
+            {blocks.current.map((block, index) => {
               return (
                 <div
                   key={index}
@@ -194,7 +199,7 @@ function App() {
                       className={[
                         numOfBlocksIndex === index ? 'actived' : null,
                       ].join(' ')}
-                      onClick={() => changeNumOfBlocksIndex(index, numOfBlocks)}
+                      onClick={() => changeNumOfBlocks(index, numOfBlocks)}
                     >
                       {numOfBlocks}
                     </span>
