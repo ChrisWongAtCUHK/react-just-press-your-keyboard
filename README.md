@@ -52,3 +52,6 @@ export default tseslint.config({
   },
 })
 ```
+
+# Origin 
+https://vuejsexamples.com/a-small-web-game-built-with-vue-js/
