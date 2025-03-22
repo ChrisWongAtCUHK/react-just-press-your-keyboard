@@ -12,3 +12,117 @@
     margin-left: 100px;
   }
 }
+
+.my-content {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+
+  .start {
+    user-select: none;
+    font-size: 40px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 15px;
+    text-shadow: 0 0 30px;
+  }
+
+  .blocks {
+    width: 1200px;
+    height: 600px;
+    position: relative;
+    user-select: none;
+    .block {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      text-align: center;
+      line-height: 50px;
+      background-color: #000000;
+      color: rgb(255, 0, 255);
+
+      box-shadow: 0 0 36px #000000;
+      font-weight: bold;
+      font-size: 30px;
+      transition: opacity 0.3s;
+    }
+  }
+
+  .time-table {
+    position: absolute;
+    right: 20px;
+    width: 200px;
+    height: 320px;
+    background-color: #222222a3;
+    border-radius: 20px;
+    color: #9e5cb6;
+    font-weight: bold;
+    padding: 5px;
+    .row {
+      display: flex;
+      span {
+        flex: 1;
+        margin: 10px;
+        text-align: center;
+      }
+    }
+    .restart {
+      width: 60%;
+      height: 30px;
+      line-height: 30px;
+      margin: 30px auto;
+      background-color: rgb(255, 216, 222);
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        color: #fff;
+        background-color: #7f42a0;
+      }
+    }
+  }
+
+  .setting {
+    position: absolute;
+    top: 260px;
+    color: #fff;
+    font-size: 22px;
+    user-select: none;
+
+    .setting-row {
+      margin: 20px;
+      display: flex;
+      align-items: baseline;
+
+      .setting-title {
+        color: #ff8aff;
+        font-weight: bold;
+        font-size: 26px;
+        margin-right: 20px;
+      }
+
+      .radio {
+        display: flex;
+        margin-top: 10px;
+
+        span {
+          margin-right: 20px;
+          &:hover {
+            cursor: pointer;
+            text-shadow: 0 0 20px #fff;
+          }
+        }
+      }
+    }
+  }
+}
+.actived {
+  color: #7a3fee;
+  font-weight: bold;
+  cursor: default !important;
+}
+
+.circle {
+  border-radius: 50% !important;
+}
